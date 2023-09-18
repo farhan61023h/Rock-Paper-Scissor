@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    #area {
+        border: 2px solid black;
+        height: 80vh;
+        width: 60vw;
+        margin: 50px auto;
+        display: flex;
+        padding: 30px;
+    }
+
+    .area {
+        border: 2px solid red;
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-evenly;
+    }
+
+
+
+    .user-area {
+        width: 10rem;
+        height: 10rem;
+        border: 2px solid green;
+        border-radius: 15px;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: space-around;
+        text-align: center;
+    }
+
+    .user-area>input {
+        width: 80%;
+        /* border: none; */
+        outline: none;
+    }
+
+    .user-area>p {
+        font-family: monospace;
+        font-size: 1.2rem;
+    }
+    #relod{
+        display:none;
+    }
+
+
+</style>
+
+<body>
+    <div id="area">
+        <div id="gameArea" class="area">
+            <div id="user" class="user-area">
+                <p>User Name</p>
+                <input type="text" id="userInput" placeholder="Enter Your Choice">
+                <button id="btn">Okay</button>
+            </div>
+            <div id="pc" class="user-area">
+                <p>Computer</p>
+                <input type="text" id="pcInput" placeholder="Machine will choose after You">
+            </div>
+        </div>
+        <div id="resultArea" class="area">
+            <div class="user-area">
+                <p>Result</p>
+                <p id="result">Answer after match</p>
+                <button id="relod">Push</button>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    let userInput = document.getElementById('userInput')
+    let pcInput = document.getElementById('pcInput')
+    let btn = document.getElementById('btn')
+    let choice = ['stone','paper','scissor'];
+    let result = document.getElementById('result');
+    let area = document.getElementById('area');
+
+    
+
+    btn.addEventListener('click', () => {
+        // Array.from(area).forEach((key) => {
+        //     key.style.justifyContent = "space-evenly";
+        // })
+        let para = document.createElement("p")
+        
+        para.innerHTML = `<p>${userInput.value}</p>`;
+        userInput.outerHTML = `${para.innerHTML}`
+        userInput.style.fontFamily = 'monospace'
+        // alert(`the inner text is ${userInput.value}`);
+
+
+        let rand = Math.floor(Math.random()*3)
+            pcInput.outerHTML = `<p>${choice[rand]}</p>`;
+
+        if(choice[rand]==para.innerText) {
+            result.innerHTML='<p>Draw</p>'
+        }
+        else if(choice[rand]=='stone' && para.innerText=='scissor') {
+            result.innerHTML='<p>PC won</p>'
+        }
+        else if(choice[rand]=='paper' && para.innerText=='stone') {
+            result.innerHTML='<p>PC won</p>'
+        }
+        else if(choice[rand]=='scissor' && para.innerText=='paper') {
+            result.innerHTML='<p>PC won</p>'
+        }
+        else if(choice[rand]=='stone' && para.innerText=='paper') {
+            result.innerHTML='<p>User won</p>'
+        }
+        else if(choice[rand]=='paper' && para.innerText=='sciccor') {
+            result.innerHTML='<p>User won</p>'
+        }
+        else if(choice[rand]=='scissor' && para.innerText=='stone') {
+            result.innerHTML='<p>User won</p>'
+        }
+        else{
+            result.innerText = 'Enter a valid choice'
+        }
+        
+        let relod = document.getElementById('relod')
+        relod.style.display = "inline";
+        relod.addEventListener('click',()=>{
+            this.location.reload()
+        })
+       
+    })
+</script>
+
+</html>
